@@ -25,131 +25,129 @@ import com.elbike.model.User;
 @Repository
 public class UserDaoImpl implements UserDao {
 
-	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-	@Autowired
-	public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate namedParameterJdbcTemplate) throws DataAccessException {
-		this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
-	}
+    @Autowired
+    public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate namedParameterJdbcTemplate) throws DataAccessException {
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    }
 
-	@Override
-	public User findById(Integer id) {
+    @Override
+    public User findById(Integer id) {
 
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("id", id);
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("id", id);
 
-		String sql = "SELECT * FROM users WHERE id=:id";
+        String sql = "SELECT * FROM users WHERE id=:id";
 
-		User result = null;
-		try {
-			result = namedParameterJdbcTemplate.queryForObject(sql, params, new UserMapper());
-		} catch (EmptyResultDataAccessException e) {
-			// do nothing, return null
-		}
+        User result = null;
+        try {
+            result = namedParameterJdbcTemplate.queryForObject(sql, params, new UserMapper());
+        } catch (EmptyResultDataAccessException e) {
+            // do nothing, return null
+        }
 
-		/*
+        /*
 		 * User result = namedParameterJdbcTemplate.queryForObject( sql, params,
 		 * new BeanPropertyRowMapper<User>());
-		 */
+         */
+        return result;
 
-		return result;
+    }
 
-	}
+    @Override
+    public List<User> findAll() {
 
-	@Override
-	public List<User> findAll() {
+        String sql = "SELECT * FROM users";
+        List<User> result = namedParameterJdbcTemplate.query(sql, new UserMapper());
 
-		String sql = "SELECT * FROM users";
-		List<User> result = namedParameterJdbcTemplate.query(sql, new UserMapper());
+        return result;
 
-		return result;
+    }
 
-	}
+    @Override
+    public void save(User user) {
 
-	@Override
-	public void save(User user) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
 
-		KeyHolder keyHolder = new GeneratedKeyHolder();
-		
-		String sql = "INSERT INTO USERS(NAME, EMAIL, ADDRESS, SEX, COUNTRY, SKILL) "
-				+ "VALUES ( :name, :email, :address, :sex, :country, :skill)";
+        String sql = "INSERT INTO USERS(COUNTRY, NAME, DATE1, DATE2, SEX, SKILL) "
+                + "VALUES ( :country, :name, :date1, :date2, :sex, :skill)";
 
-		namedParameterJdbcTemplate.update(sql, getSqlParameterByModel(user), keyHolder);
-		user.setId(keyHolder.getKey().intValue());
-		
-	}
+        namedParameterJdbcTemplate.update(sql, getSqlParameterByModel(user), keyHolder);
+        user.setId(keyHolder.getKey().intValue());
 
-	@Override
-	public void update(User user) {
+    }
 
-		String sql = "UPDATE USERS SET NAME=:name, EMAIL=:email, ADDRESS=:address, "
-				+ "SEX=:sex, COUNTRY=:country, SKILL=:skill WHERE id=:id";
+    @Override
+    public void update(User user) {
 
-		namedParameterJdbcTemplate.update(sql, getSqlParameterByModel(user));
+        String sql = "UPDATE USERS SET COUNTRY=:country, NAME=:name, DATE1=:date1, DATE2=:date2, "
+                + "SEX=:sex, SKILL=:skill WHERE id=:id";
 
-	}
+        namedParameterJdbcTemplate.update(sql, getSqlParameterByModel(user));
 
-	@Override
-	public void delete(Integer id) {
+    }
 
-		String sql = "DELETE FROM USERS WHERE id= :id";
-		namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource("id", id));
+    @Override
+    public void delete(Integer id) {
 
-	}
+        String sql = "DELETE FROM USERS WHERE id= :id";
+        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource("id", id));
 
-	private SqlParameterSource getSqlParameterByModel(User user) {
+    }
 
-		// Unable to handle List<String> or Array
-		// BeanPropertySqlParameterSource
+    private SqlParameterSource getSqlParameterByModel(User user) {
 
-		MapSqlParameterSource paramSource = new MapSqlParameterSource();
-		paramSource.addValue("id", user.getId());
-		paramSource.addValue("name", user.getName());
-		paramSource.addValue("email", user.getEmail());
-		paramSource.addValue("address", user.getAddress());
+        // Unable to handle List<String> or Array
+        // BeanPropertySqlParameterSource
+        MapSqlParameterSource paramSource = new MapSqlParameterSource();
+        paramSource.addValue("id", user.getId());
+                paramSource.addValue("country", user.getCountry());
+        paramSource.addValue("name", user.getName());
+        paramSource.addValue("date1", user.getDate1());
+        paramSource.addValue("date2", user.getDate2());
+        paramSource.addValue("sex", user.getSex());
+        paramSource.addValue("country", user.getCountry());
+        paramSource.addValue("skill", convertListToDelimitedString(user.getSkill()));
 
-		// join String
-		paramSource.addValue("sex", user.getSex());
-		paramSource.addValue("country", user.getCountry());
-		paramSource.addValue("skill", convertListToDelimitedString(user.getSkill()));
+        return paramSource;
+    }
 
-		return paramSource;
-	}
+    private static final class UserMapper implements RowMapper<User> {
 
-	private static final class UserMapper implements RowMapper<User> {
+        public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+            User user = new User();
+            user.setId(rs.getInt("id"));
+                        user.setCountry(rs.getString("country"));
+            user.setName(rs.getString("name"));
+            user.setDate1(rs.getString("date1"));
+            user.setDate2(rs.getString("date2"));
+            user.setCountry(rs.getString("country"));
+            user.setSex(rs.getString("sex"));
+            user.setSkill(convertDelimitedStringToList(rs.getString("skill")));
+            return user;
+        }
+    }
 
-		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
-			User user = new User();
-			user.setId(rs.getInt("id"));
-			user.setName(rs.getString("name"));
-			user.setEmail(rs.getString("email"));
-			user.setAddress(rs.getString("address"));
-			user.setCountry(rs.getString("country"));
-			user.setSex(rs.getString("sex"));
-			user.setSkill(convertDelimitedStringToList(rs.getString("skill")));
-			return user;
-		}
-	}
+    private static List<String> convertDelimitedStringToList(String delimitedString) {
 
-	private static List<String> convertDelimitedStringToList(String delimitedString) {
+        List<String> result = new ArrayList<String>();
 
-		List<String> result = new ArrayList<String>();
+        if (!StringUtils.isEmpty(delimitedString)) {
+            result = Arrays.asList(StringUtils.delimitedListToStringArray(delimitedString, ","));
+        }
+        return result;
 
-		if (!StringUtils.isEmpty(delimitedString)) {
-			result = Arrays.asList(StringUtils.delimitedListToStringArray(delimitedString, ","));
-		}
-		return result;
+    }
 
-	}
+    private String convertListToDelimitedString(List<String> list) {
 
-	private String convertListToDelimitedString(List<String> list) {
+        String result = "";
+        if (list != null) {
+            result = StringUtils.arrayToCommaDelimitedString(list.toArray());
+        }
+        return result;
 
-		String result = "";
-		if (list != null) {
-			result = StringUtils.arrayToCommaDelimitedString(list.toArray());
-		}
-		return result;
-
-	}
+    }
 
 }

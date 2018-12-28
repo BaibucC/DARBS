@@ -112,8 +112,6 @@ public class UserController {
 
 		// set default value
 		user.setName("mkyong123");
-		user.setEmail("test@gmail.com");
-		user.setAddress("abc 88");
 		user.setSex("M");
 		user.setSkill(new ArrayList<String>(Arrays.asList("Spring", "Grails", "Groovy")));
 		user.setCountry("SG");
@@ -175,15 +173,6 @@ public class UserController {
 
 	private void populateDefaultModel(Model model) {
 
-		List<String> frameworksList = new ArrayList<String>();
-		frameworksList.add("Spring MVC");
-		frameworksList.add("Struts 2");
-		frameworksList.add("JSF 2");
-		frameworksList.add("GWT");
-		frameworksList.add("Play");
-		frameworksList.add("Apache Wicket");
-		model.addAttribute("frameworkList", frameworksList);
-
 		Map<String, String> skill = new LinkedHashMap<String, String>();
 		skill.put("Hibernate", "Hibernate");
 		skill.put("Spring", "Spring");
@@ -192,13 +181,6 @@ public class UserController {
 		skill.put("Grails", "Grails");
 		model.addAttribute("javaSkillList", skill);
 
-		List<Integer> numbers = new ArrayList<Integer>();
-		numbers.add(1);
-		numbers.add(2);
-		numbers.add(3);
-		numbers.add(4);
-		numbers.add(5);
-		model.addAttribute("numberList", numbers);
 
 		Map<String, String> country = new LinkedHashMap<String, String>();
 		country.put("US", "United Stated");

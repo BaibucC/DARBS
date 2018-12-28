@@ -27,20 +27,24 @@
 		<label class="col-sm-2">ID</label>
 		<div class="col-sm-10">${user.id}</div>
 	</div>
-
+	<div class="row">
+		<label class="col-sm-2">Country</label>
+		<div class="col-sm-10">${user.country}</div>
+	</div>
+        
 	<div class="row">
 		<label class="col-sm-2">Name</label>
 		<div class="col-sm-10">${user.name}</div>
 	</div>
-
-	<div class="row">
-		<label class="col-sm-2">Email</label>
-		<div class="col-sm-10">${user.email}</div>
+        
+        	<div class="row">
+		<label class="col-sm-2">Date1</label>
+		<div class="col-sm-10">${user.date1}</div>
 	</div>
-
-	<div class="row">
-		<label class="col-sm-2">Address</label>
-		<div class="col-sm-10">${user.address}</div>
+        
+        	<div class="row">
+		<label class="col-sm-2">Date2</label>
+		<div class="col-sm-10">${user.date2}</div>
 	</div>
 
 	<div class="row">

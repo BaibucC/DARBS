@@ -36,23 +36,21 @@
 				</div>
 			</div>
 		</spring:bind>
-
-		<spring:bind path="email">
+                		<spring:bind path="date1">
 			<div class="form-group ${status.error ? 'has-error' : ''}">
-				<label class="col-sm-2 control-label">Email</label>
+				<label class="col-sm-2 control-label">Date1</label>
 				<div class="col-sm-10">
-					<form:input path="email" class="form-control" id="email" placeholder="Email" />
-					<form:errors path="email" class="control-label" />
+					<form:input path="date1" type="text" class="form-control " id="date1" placeholder="Date1" />
+					<form:errors path="date1" class="control-label" />
 				</div>
 			</div>
 		</spring:bind>
-
-		<spring:bind path="address">
+                		<spring:bind path="date2">
 			<div class="form-group ${status.error ? 'has-error' : ''}">
-				<label class="col-sm-2 control-label">Address</label>
+				<label class="col-sm-2 control-label">Date2</label>
 				<div class="col-sm-10">
-					<form:textarea path="address" rows="5" class="form-control" id="address" placeholder="address" />
-					<form:errors path="address" class="control-label" />
+					<form:input path="date2" type="text" class="form-control " id="date2" placeholder="Date2" />
+					<form:errors path="date2" class="control-label" />
 				</div>
 			</div>
 		</spring:bind>

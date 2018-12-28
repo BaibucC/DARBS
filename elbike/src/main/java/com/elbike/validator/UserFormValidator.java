@@ -14,39 +14,37 @@ import com.elbike.service.UserService;
 @Component
 public class UserFormValidator implements Validator {
 
-	@Autowired
-	@Qualifier("emailValidator")
-	EmailValidator emailValidator;
-	
-	@Autowired
-	UserService userService;
-	
-	@Override
-	public boolean supports(Class<?> clazz) {
-		return User.class.equals(clazz);
-	}
+//    @Autowired
+//    @Qualifier("emailValidator")
+//    EmailValidator emailValidator;
 
-	@Override
-	public void validate(Object target, Errors errors) {
+    @Autowired
+    UserService userService;
 
-		User user = (User) target;
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return User.class.equals(clazz);
+    }
 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "NotEmpty.userForm.name");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty.userForm.email");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address", "NotEmpty.userForm.address");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sex", "NotEmpty.userForm.sex");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "country", "NotEmpty.userForm.country");
-	
-		if(!emailValidator.valid(user.getEmail())){
-			errors.rejectValue("email", "Pattern.userForm.email");
-		}
-		
-		
-		if(user.getCountry().equalsIgnoreCase("none")){
-			errors.rejectValue("country", "NotEmpty.userForm.country");
-		}
-		
+    @Override
+    public void validate(Object target, Errors errors) {
 
-	}
+        User user = (User) target;
+
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "NotEmpty.userForm.name");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "date1", "NotEmpty.userForm.date1");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "date2", "NotEmpty.userForm.date2");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sex", "NotEmpty.userForm.sex");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "country", "NotEmpty.userForm.country");
+
+//        if (!emailValidator.valid(user.getEmail())) {
+//            errors.rejectValue("email", "Pattern.userForm.email");
+//        }
+
+        if (user.getCountry().equalsIgnoreCase("none")) {
+            errors.rejectValue("country", "NotEmpty.userForm.country");
+        }
+
+    }
 
 }

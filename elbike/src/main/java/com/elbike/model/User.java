@@ -3,91 +3,97 @@ package com.elbike.model;
 import java.util.List;
 
 public class User {
-	// form:hidden - hidden value
-	Integer id;
 
-	// form:input - textbox
-	String name;
+    /**
+     * @return the date1
+     */
+    
+    // form:hidden - hidden value
 
-	// form:input - textbox
-	String email;
+    Integer id;
 
-	// form:textarea - textarea
-	String address;
+    // form:input - textbox
+    String name;
 
-	// form:radiobutton - radio button
-	String sex;
+    // form:input - textbox
+    String date1;
 
-	// form:select - form:option - dropdown - single select
-	String country;
+    // form:input - textbox
+    String date2;
 
-	// form:select - multiple=true - dropdown - multiple select
-	List<String> skill;
+    // form:radiobutton - radio button
+    String sex;
 
-	public boolean isNew() {
-		return (this.id == null);
-	}
+    // form:select - form:option - dropdown - single select
+    String country;
 
-	public Integer getId() {
-		return id;
-	}
+    // form:select - multiple=true - dropdown - multiple select
+    List<String> skill;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public boolean isNew() {
+        return (this.id == null);
+    }
 
-	public String getName() {
-		return name;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getAddress() {
-		return address;
-	}
+    public String getDate1() {
+        return date1;
+    }
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
+    public void setDate1(String date1) {
+        this.date1 = date1;
+    }
 
-	public String getSex() {
-		return sex;
-	}
+    public String getDate2() {
+        return date2;
+    }
 
-	public void setSex(String sex) {
-		this.sex = sex;
-	}
+    public void setDate2(String date2) {
+        this.date2 = date2;
+    }
 
-	public String getCountry() {
-		return country;
-	}
+    public String getSex() {
+        return sex;
+    }
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
 
-	public List<String> getSkill() {
-		return skill;
-	}
+    public String getCountry() {
+        return country;
+    }
 
-	public void setSkill(List<String> skill) {
-		this.skill = skill;
-	}
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", address=" + address
-				+ ", sex=" + sex + ", country=" + country + "]" + isNew();
-	}
+    public List<String> getSkill() {
+        return skill;
+    }
+
+    public void setSkill(List<String> skill) {
+        this.skill = skill;
+    }
+
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", name=" + name + ", date1=" + date1 
+                + ", date2=" + date2 + ", sex=" + sex + ", country=" + country + "]" + isNew();
+    }
 
 }
