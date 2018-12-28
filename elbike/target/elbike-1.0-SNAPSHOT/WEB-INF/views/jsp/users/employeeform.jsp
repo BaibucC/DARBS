@@ -13,10 +13,10 @@
 
 	<c:choose>
 		<c:when test="${userForm['new']}">
-			<h1>Use bike</h1>
+			<h1>Add employee</h1>
 		</c:when>
 		<c:otherwise>
-			<h1>Use bike</h1>
+			<h1>Add employee</h1>
 		</c:otherwise>
 	</c:choose>
 	<br />

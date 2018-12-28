@@ -12,15 +12,22 @@
 
 <spring:url value="/" var="urlHome" />
 <spring:url value="/users/add" var="urlAddUser" />
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <nav class="navbar navbar-inverse ">
 	<div class="container">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="${urlHome}">Spring MVC Form</a>
+			<a class="navbar-brand" href="${urlHome}">Electric bikes & employees</a>
 		</div>
 		<div id="navbar">
 			<ul class="nav navbar-nav navbar-right">
-				<li class="active"><a href="${urlAddUser}">Add User</a></li>
+				<li class="active"><a href="${urlAddUser}">Add employee</a></li>
+			</ul>
+                        <ul class="nav navbar-nav navbar-right">
+				<li class="active"><a href="${urlAddUser}">Add Bike</a></li>
+			</ul>
+                        <ul class="nav navbar-nav navbar-right">
+				<li class="active"><a href="${urlAddUser}">Use bike</a></li>
 			</ul>
 		</div>
 	</div>

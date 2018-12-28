@@ -50,8 +50,8 @@
                             <spring:url value="/users/${user.id}/update" var="editUrl" />
 
 
-                            <button class="btn btn-edit" onclick="location.href = '${editUrl}'">Labot</button>
-                            <button class="btn btn-delete" onclick="this.disabled = true;post('${deleteUrl}')">Dzēst</button></td>
+                            <button class="btn btn-edit" onclick="location.href = '${editUrl}'">Edit bike</button>
+                            <button class="btn btn-delete" onclick="this.disabled = true;post('${deleteUrl}')">Delete bike</button></td>
                     </tr>
                 </c:forEach>
             </table>
