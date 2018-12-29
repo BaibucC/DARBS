@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import com.elbike2.dao.UserDAO;
-import com.elbike2.model.Bike;
 
 @Controller
 public class HomeController {
@@ -26,45 +25,30 @@ public class HomeController {
     public ModelAndView listUser(ModelAndView model) throws IOException {
         List<User> listUser = userDAO.list();
         model.addObject("listUser", listUser);
-        List<Bike> listBike = userDAO.listBike();
-        model.addObject("listBike", listBike);
         model.setViewName("home");
 
         return model;
     }
 
-    //@RequestMapping(value = "/")
-//    public ModelAndView listBike(ModelAndView model) throws IOException {
-//        List<Bike> listBike = userDAO.listBike();
-//        model.addObject("listBike", listBike);
-//        model.setViewName("home");
-//        return model;
-//    }
+    @RequestMapping(value = "/newUser", method = RequestMethod.GET)
+    public ModelAndView newUser(ModelAndView model) {
+        User newUser = new User();
+        model.addObject("user", newUser);
+        model.setViewName("ContactForm");
+        return model;
+    }
+
     @RequestMapping(value = "/newEmployee", method = RequestMethod.GET)
     public ModelAndView newEmployee(ModelAndView model) {
         User newUser = new User();
         model.addObject("user", newUser);
-        model.setViewName("EmployeeForm");
-        return model;
-    }
-
-    @RequestMapping(value = "/newBike", method = RequestMethod.GET)
-    public ModelAndView newBike(ModelAndView model) {
-        Bike newBike = new Bike();
-        model.addObject("bike", newBike);
-        model.setViewName("BikeForm");
+        model.setViewName("ContactForm");
         return model;
     }
 
     @RequestMapping(value = "/saveUser", method = RequestMethod.POST)
     public ModelAndView saveUser(@ModelAttribute User user) {
         userDAO.saveOrUpdate(user);
-        return new ModelAndView("redirect:/");
-    }
-
-    @RequestMapping(value = "/saveBike", method = RequestMethod.POST)
-    public ModelAndView saveBike(@ModelAttribute Bike bike) {
-        userDAO.saveOrUpdateBike(bike);
         return new ModelAndView("redirect:/");
     }
 
@@ -75,29 +59,12 @@ public class HomeController {
         return new ModelAndView("redirect:/");
     }
 
-    @RequestMapping(value = "/deleteBike", method = RequestMethod.GET)
-    public ModelAndView deleteBike(HttpServletRequest request) {
-        int bikeId = Integer.parseInt(request.getParameter("id"));
-        userDAO.deleteBike(bikeId);
-        return new ModelAndView("redirect:/");
-    }
-
     @RequestMapping(value = "/editUser", method = RequestMethod.GET)
     public ModelAndView editUser(HttpServletRequest request) {
         int userId = Integer.parseInt(request.getParameter("id"));
         User user = userDAO.get(userId);
-        ModelAndView model = new ModelAndView("EmployeeForm");
+        ModelAndView model = new ModelAndView("ContactForm");
         model.addObject("user", user);
-
-        return model;
-    }
-
-    @RequestMapping(value = "/editBike", method = RequestMethod.GET)
-    public ModelAndView editBike(HttpServletRequest request) {
-        int bikeId = Integer.parseInt(request.getParameter("id"));
-        Bike bike = userDAO.getBike(bikeId);
-        ModelAndView model = new ModelAndView("BikeForm");
-        model.addObject("bike", bike);
 
         return model;
     }
