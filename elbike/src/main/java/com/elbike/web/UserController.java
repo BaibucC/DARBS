@@ -29,11 +29,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.elbike.model.User;
 import com.elbike.service.UserService;
 import com.elbike.validator.UserFormValidator;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 //import javax.validation.Valid;
 
 //http://www.tikalk.com/redirectattributes-new-feature-spring-mvc-31/
 //https://en.wikipedia.org/wiki/Post/Redirect/Get
 //http://www.oschina.net/translate/spring-mvc-flash-attribute-example
+@EnableWebMvc
 @Controller
 public class UserController {
 
@@ -111,10 +113,10 @@ public class UserController {
 		User user = new User();
 
 		// set default value
-		user.setName("mkyong123");
+		user.setName("defmkyong123");
 		user.setSex("M");
-		user.setSkill(new ArrayList<String>(Arrays.asList("Spring", "Grails", "Groovy")));
-		user.setCountry("SG");
+		user.setSkill(new ArrayList<String>(Arrays.asList("defSpring", "defGrails", "defGroovy")));
+		user.setCountry("defSG");
 
 		model.addAttribute("userForm", user);
 

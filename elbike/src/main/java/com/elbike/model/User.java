@@ -29,6 +29,20 @@ public class User {
 
     // form:select - multiple=true - dropdown - multiple select
     List<String> skill;
+    
+    
+    public User(){
+    }
+    
+    public User(Integer id, String name, String date1, String date2, String sex, String country, List<String> skill){
+        this.id = id;
+        this.name = name;
+        this.date1 = date1;
+        this.date2 = date2;
+        this.sex = sex;
+        this.country = country;
+        this.skill = skill;        
+    }
 
     public boolean isNew() {
         return (this.id == null);

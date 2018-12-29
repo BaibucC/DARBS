@@ -21,79 +21,68 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import com.elbike.model.User;
+import javax.sql.DataSource;
+import org.springframework.jdbc.core.JdbcTemplate;
 
-@Repository
+//@Repository
 public class UserDaoImpl implements UserDao {
 
-    NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
-    @Autowired
-    public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate namedParameterJdbcTemplate) throws DataAccessException {
-        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    public UserDaoImpl(DataSource dataSource) {
+        jdbcTemplate = new JdbcTemplate(dataSource);
     }
+
+    //NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+//    @Autowired
+//    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) throws DataAccessException {
+//        this.jdbcTemplate = jdbcTemplate;
+//    }
 
     @Override
     public User findById(Integer id) {
-
+        String sql = "SELECT * FROM users WHERE id=:id";
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", id);
 
-        String sql = "SELECT * FROM users WHERE id=:id";
-
         User result = null;
         try {
-            result = namedParameterJdbcTemplate.queryForObject(sql, params, new UserMapper());
+            result = jdbcTemplate.queryForObject(sql, new UserMapper(), params);
         } catch (EmptyResultDataAccessException e) {
-            // do nothing, return null
+            return null;
         }
-
-        /*
-		 * User result = namedParameterJdbcTemplate.queryForObject( sql, params,
-		 * new BeanPropertyRowMapper<User>());
-         */
         return result;
-
     }
 
     @Override
     public List<User> findAll() {
-
         String sql = "SELECT * FROM users";
-        List<User> result = namedParameterJdbcTemplate.query(sql, new UserMapper());
-
+        List<User> result = jdbcTemplate.query(sql, new UserMapper());
         return result;
-
     }
 
     @Override
     public void save(User user) {
-
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         String sql = "INSERT INTO USERS(COUNTRY, NAME, DATE1, DATE2, SEX, SKILL) "
                 + "VALUES ( :country, :name, :date1, :date2, :sex, :skill)";
 
-        namedParameterJdbcTemplate.update(sql, getSqlParameterByModel(user), keyHolder);
+        jdbcTemplate.update(sql, getSqlParameterByModel(user), keyHolder);
         user.setId(keyHolder.getKey().intValue());
-
     }
 
     @Override
     public void update(User user) {
-
         String sql = "UPDATE USERS SET COUNTRY=:country, NAME=:name, DATE1=:date1, DATE2=:date2, "
                 + "SEX=:sex, SKILL=:skill WHERE id=:id";
-
-        namedParameterJdbcTemplate.update(sql, getSqlParameterByModel(user));
-
+        jdbcTemplate.update(sql, getSqlParameterByModel(user));
     }
 
     @Override
     public void delete(Integer id) {
-
         String sql = "DELETE FROM USERS WHERE id= :id";
-        namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource("id", id));
-
+        jdbcTemplate.update(sql, id);
     }
 
     private SqlParameterSource getSqlParameterByModel(User user) {
@@ -102,7 +91,7 @@ public class UserDaoImpl implements UserDao {
         // BeanPropertySqlParameterSource
         MapSqlParameterSource paramSource = new MapSqlParameterSource();
         paramSource.addValue("id", user.getId());
-                paramSource.addValue("country", user.getCountry());
+        paramSource.addValue("country", user.getCountry());
         paramSource.addValue("name", user.getName());
         paramSource.addValue("date1", user.getDate1());
         paramSource.addValue("date2", user.getDate2());
@@ -118,7 +107,7 @@ public class UserDaoImpl implements UserDao {
         public User mapRow(ResultSet rs, int rowNum) throws SQLException {
             User user = new User();
             user.setId(rs.getInt("id"));
-                        user.setCountry(rs.getString("country"));
+            user.setCountry(rs.getString("country"));
             user.setName(rs.getString("name"));
             user.setDate1(rs.getString("date1"));
             user.setDate2(rs.getString("date2"));

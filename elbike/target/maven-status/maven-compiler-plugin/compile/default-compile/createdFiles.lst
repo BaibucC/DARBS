@@ -1,6 +1,5 @@
 com\elbike\dao\UserDao.class
 com\elbike\dao\UserDaoImpl.class
-com\elbike\validator\EmailValidator.class
 com\elbike\dao\UserDaoImpl$1.class
 com\elbike\web\UserController.class
 com\elbike\model\User.class
