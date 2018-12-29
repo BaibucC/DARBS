@@ -11,8 +11,8 @@
     <div class="container">
             <ul>
                 <li><a href="/ElBike">Contact List</a></li>
-                <li><a href="newBike" onclick="window.open('newBike', 'newwindow', 'width=300, height=250 ,resizable=yes , scrollbars=yes')">New Bike</a></li>
-                <li><a href="newEmployee" onclick="window.open('newEmployee', 'newwindow', 'width=300, height=250 ,resizable=yes , scrollbars=yes')">New Employee</a></li>
+                <li><a href="newBike">New Bike</a></li>
+                <li><a href="newEmployee">New Employee</a></li>
             </ul>
     </div>
 </nav>

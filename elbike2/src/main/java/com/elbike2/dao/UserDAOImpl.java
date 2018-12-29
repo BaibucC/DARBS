@@ -1,5 +1,6 @@
 package com.elbike2.dao;
 
+import com.elbike2.model.Bike;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -26,8 +27,7 @@ public class UserDAOImpl implements UserDAO {
 	public void saveOrUpdate(User user) {
 		if (user.getId() > 0) {
 			// update
-			String sql = "UPDATE users SET name=?, country=?, date1=?, "
-						+ "date2=? WHERE id=?";
+            String sql = "UPDATE users SET name=?, country=?, date1=?, date2=? WHERE id=?";
 			jdbcTemplate.update(sql, user.getName(), user.getCountry(),
 					user.getDate1(), user.getDate2(), user.getId());
 		} else {
@@ -37,8 +37,21 @@ public class UserDAOImpl implements UserDAO {
 			jdbcTemplate.update(sql, user.getName(), user.getCountry(),
 					user.getDate1(), user.getDate2());
 		}
+    }
 		
+    @Override
+    public void saveOrUpdateBike(Bike bike) {
+        if (bike.getId() > 0) {
+            // update
+            String sql = "UPDATE elbikes SET bikename=?, status=?, inuse=? WHERE id=?";
+            jdbcTemplate.update(sql, bike.getBikename(), bike.getStatus(), bike.getInuse(), bike.getId());
+        } else {
+            // insert
+            String sql = "INSERT INTO elbikes (bikename, status, inuse)"
+                    + " VALUES (?, ?, ?)";
+            jdbcTemplate.update(sql, bike.getBikename(), bike.getStatus(), bike.getInuse());
 	}
+    }
 
 	@Override
 	public void delete(int userId) {
@@ -47,6 +60,12 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
+    public void deleteBike(int bikeId) {
+        String sql = "DELETE FROM elbikes WHERE id=?";
+        jdbcTemplate.update(sql, bikeId);
+    }
+
+    @Override
 	public List<User> list() {
 		String sql = "SELECT * FROM users";
 		List<User> listUser = jdbcTemplate.query(sql, new RowMapper<User>() {
@@ -63,11 +82,47 @@ public class UserDAOImpl implements UserDAO {
 				
 				return aUser;
 			}
+        });
+        return listUser;
+    }
 			
+    @Override
+    public List<Bike> listBike() {
+        String sql = "SELECT * FROM elbikes";
+        List<Bike> listBike = jdbcTemplate.query(sql, new RowMapper<Bike>() {
+            @Override
+            public Bike mapRow(ResultSet rs2, int rowNum) throws SQLException {
+                Bike abike = new Bike();
+                abike.setId(rs2.getInt("id"));
+                abike.setBikename(rs2.getString("bikename"));
+                abike.setStatus(rs2.getBoolean("status"));
+                abike.setInuse(rs2.getBoolean("inuse"));
+                return abike;
+            }
 		});
+        return listBike;
+    }
 		
-		return listUser;
+    @Override
+    public Bike getBike(int bikeId) {
+        String sql = "SELECT * FROM elbikes WHERE id=" + bikeId;
+        return jdbcTemplate.query(sql, new ResultSetExtractor<Bike>() {
+
+            @Override
+            public Bike extractData(ResultSet rs2) throws SQLException,
+                    DataAccessException {
+                if (rs2.next()) {
+                    Bike bike = new Bike();
+                    bike.setId(rs2.getInt("id"));
+                    bike.setBikename(rs2.getString("bikename"));
+                    bike.setStatus(rs2.getBoolean("status"));
+                    bike.setInuse(rs2.getBoolean("inuse"));
+                    return bike;
 	}
+                return null;
+            }
+        });
+    }
 
 	@Override
 	public User get(int userId) {
