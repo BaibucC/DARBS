@@ -7,6 +7,8 @@ public class User {
     private String country;
     private String date1;
     private String date2;
+    private Boolean status;
+    private Boolean inuse;
 
     public User() {
     }
@@ -16,6 +18,8 @@ public class User {
         this.country = email;
         this.date1 = address;
         this.date2 = telephone;
+        this.status = status;
+        this.inuse = inuse;
     }
 
     public int getId() {
@@ -56,6 +60,22 @@ public class User {
 
     public void setDate2(String date2) {
         this.date2 = date2;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public Boolean getInuse() {
+        return inuse;
+    }
+
+    public void setInuse(Boolean inuse) {
+        this.inuse = inuse;
     }
 
 }
