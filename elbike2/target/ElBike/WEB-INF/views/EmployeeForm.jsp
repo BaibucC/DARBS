@@ -31,7 +31,7 @@
 				<td><form:input path="date2" /></td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center"><input type="submit" value="Save"></td>
+				<td colspan="2" align="center"><input type="button" value="Save"></td>
 			</tr>
 		</table>
 		</form:form>
