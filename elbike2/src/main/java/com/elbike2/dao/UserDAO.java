@@ -19,6 +19,8 @@ public interface UserDAO {
 
     public void deleteBike(int bikeId);
 
+    public void removeBike(User user);
+
     public Bike getBike(int bikeId);
 
     public List<Bike> listBike();

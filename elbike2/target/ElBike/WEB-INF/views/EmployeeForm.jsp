@@ -30,11 +30,12 @@
 				<td>Date2:</td>
 				<td><form:input path="date2" /></td>
 			</tr>
+                        </form:form>
 			<tr>
-				<td colspan="2" align="center"><input type="button" value="Save"  onclick="self.close()"></td>
+                            <td colspan="2" align="center"><input type="submit" value="Save"><a href="redirect:/"><input type="submit" value="Cancel" /></a></<td>
 			</tr>
 		</table>
-		</form:form>
+		
 	</div>
 </body>
 </html>

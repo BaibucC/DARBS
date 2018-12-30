@@ -62,6 +62,12 @@ public class HomeController {
         return new ModelAndView("redirect:/");
     }
 
+    @RequestMapping(value = "/removeBike", method = RequestMethod.GET)
+    public ModelAndView removeBike(@ModelAttribute User user) {
+        userDAO.removeBike(user);
+        return new ModelAndView("redirect:/");
+    }
+
     @RequestMapping(value = "/saveBike", method = RequestMethod.POST)
     public ModelAndView saveBike(@ModelAttribute Bike bike) {
         userDAO.saveOrUpdateBike(bike);
