@@ -1,19 +1,21 @@
 package com.elbike2.model;
 
+import javax.validation.constraints.NotEmpty;
+
 public class User {
 
     private int id;
     private String name;
-    private String country;
+    private String employee;
     private String date1;
     private String date2;
 
     public User() {
     }
 
-    public User(String name, String email, String address, String telephone) {
+    public User(String name, String employee, String address, String telephone) {
         this.name = name;
-        this.country = email;
+        this.employee = employee;
         this.date1 = address;
         this.date2 = telephone;
     }
@@ -34,12 +36,12 @@ public class User {
         this.name = name;
     }
 
-    public String getCountry() {
-        return country;
+    public String getEmployee() {
+        return employee;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setEmployee(String employee) {
+        this.employee = employee;
     }
 
     public String getDate1() {

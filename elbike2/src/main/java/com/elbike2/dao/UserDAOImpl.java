@@ -23,17 +23,31 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    public void newEmployee(User user) {
+//        if (user.getId() > 0) {
+//            // update
+//            String sql = "UPDATE users SET employee=? WHERE id=?";
+//            jdbcTemplate.update(sql, user.getEmployee(), user.getId());
+//        } else {
+//            // insert
+            String sql = "INSERT INTO users (employee)"
+                    + " VALUES (?)";
+            jdbcTemplate.update(sql, user.getEmployee());
+//        }
+    }
+
+    @Override
     public void saveOrUpdate(User user) {
         if (user.getId() > 0) {
             // update
-            String sql = "UPDATE users SET name=?, country=?, date1=?, date2=? WHERE id=?";
-            jdbcTemplate.update(sql, user.getName(), user.getCountry(),
+            String sql = "UPDATE users SET name=?, employee=?, date1=?, date2=? WHERE id=?";
+            jdbcTemplate.update(sql, user.getName(), user.getEmployee(),
                     user.getDate1(), user.getDate2(), user.getId());
         } else {
             // insert
-            String sql = "INSERT INTO users (name, country, date1, date2)"
+            String sql = "INSERT INTO users (name, employee, date1, date2)"
                     + " VALUES (?, ?, ?, ?)";
-            jdbcTemplate.update(sql, user.getName(), user.getCountry(),
+            jdbcTemplate.update(sql, user.getName(), user.getEmployee(),
                     user.getDate1(), user.getDate2());
         }
     }
@@ -45,14 +59,6 @@ public class UserDAOImpl implements UserDAO {
         jdbcTemplate.update(sql);
     }
 
-//        } 
-//        else {
-//            // insert
-//            String sql = "INSERT INTO users (name, country, date1, date2)"
-//                    + " VALUES (?, ?, ?, ?)";
-//            jdbcTemplate.update(sql, user.getName(), user.getCountry(),
-//                    user.getDate1(), user.getDate2());
-//        }
     @Override
     public void saveOrUpdateBike(Bike bike) {
         if (bike.getId() > 0) {
@@ -90,7 +96,7 @@ public class UserDAOImpl implements UserDAO {
 
                 aUser.setId(rs.getInt("id"));
                 aUser.setName(rs.getString("name"));
-                aUser.setCountry(rs.getString("country"));
+                aUser.setEmployee(rs.getString("employee"));
                 aUser.setDate1(rs.getString("date1"));
                 aUser.setDate2(rs.getString("date2"));
 
@@ -150,7 +156,7 @@ public class UserDAOImpl implements UserDAO {
                     User user = new User();
                     user.setId(rs.getInt("id"));
                     user.setName(rs.getString("name"));
-                    user.setCountry(rs.getString("country"));
+                    user.setEmployee(rs.getString("employee"));
                     user.setDate1(rs.getString("date1"));
                     user.setDate2(rs.getString("date2"));
                     return user;

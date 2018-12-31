@@ -9,6 +9,8 @@ public interface UserDAO {
 
     public void saveOrUpdate(User user);
 
+    public void newEmployee(User user);
+
     public void delete(int userId);
 
     public User get(int userId);

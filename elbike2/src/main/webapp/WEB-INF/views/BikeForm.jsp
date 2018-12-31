@@ -18,33 +18,25 @@
                         <td>Bike name:</td>
                         <td><form:input path="bikename" /></td>
                     </tr>
-                                        <tr>
-                        <form:errors path="bikename" class="control-label" />
-                    </tr>
                     <tr>
                         <td>Status:</td>
                         <td><form:radiobutton path="status" value="1" /> Working</td>
                         <td><form:radiobutton path="status" value="0" /> Out of order</td>
-                    </tr>
-                                        <tr>
-                        <form:errors path="status" class="control-label" />
                     </tr>
                     <tr>
                         <td>In use:</td>
                         <td><form:radiobutton path="inuse" value="0" /> Vacant</td>
                         <td><form:radiobutton path="inuse" value="1" /> In use</td>
                     </tr>
-                    <tr>
-                        <form:errors path="inuse" class="control-label" />
-                    </tr>
-                    <tr>
-                        <td colspan="2" align="center"><input type="submit" value="Save"><a href="redirect:/"><input type="submit" value="Cancel"></a></td>
-                    </tr>
-                                        <tr>
-                                            <td>Messages</td>
-                    </tr>
-                </table>
-            </form:form>
+                </form:form>
+                <tr>
+                    <td colspan="2" align="center"><input type="submit" value="Save"><a href="/ElBike/"><input type="button" value="Cancel"></a></td>
+                </tr>
+                <tr>
+                    <td>Messages</td>
+                </tr>
+            </table>
+
         </div>
     </body>
 </html>

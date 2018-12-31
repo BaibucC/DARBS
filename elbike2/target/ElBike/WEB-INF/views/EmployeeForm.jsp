@@ -6,33 +6,33 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>New/Edit Contact</title>
+<title>New employee</title>
 </head>
 <body>
 	<div align="center">
-		<h1>New/Edit Contact</h1>
-		<form:form action="saveUser" method="post" modelAttribute="user">
+		<h1>New Employee</h1>
+		<form:form action="saveEmployee" method="post" modelAttribute="user">
 		<table>
 			<form:hidden path="id"/>
-			<tr>
+<!--			<tr>
 				<td>Name:</td>
 				<td><form:input path="name" /></td>
-			</tr>
+			</tr>-->
 			<tr>
-				<td>Country:</td>
-				<td><form:input path="country" /></td>
+				<td>Employee:</td>
+				<td><form:input path="employee" /></td>
 			</tr>
-			<tr>
+<!--			<tr>
 				<td>Date1:</td>
 				<td><form:input path="date1" /></td>
 			</tr>
 			<tr>
 				<td>Date2:</td>
 				<td><form:input path="date2" /></td>
-			</tr>
+			</tr>-->
                         </form:form>
 			<tr>
-                            <td colspan="2" align="center"><input type="submit" value="Save"><a href="redirect:/"><input type="submit" value="Cancel" /></a></<td>
+                            <td colspan="2" align="center"><input type="submit" value="Save"><a href="/ElBike/"><input type="button" value="Cancel" /></a></<td>
 			</tr>
 		</table>
 		

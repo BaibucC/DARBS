@@ -37,7 +37,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter{
 	public DataSource getDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("org.sqlite.JDBC");
-		dataSource.setUrl("jdbc:sqlite:D:\\CODING\\DARBS\\elbike2\\database1.db");
+		dataSource.setUrl("jdbc:sqlite:H:\\JAVA\\DARBS\\elbike2\\database1.db");
 
 		
 		return dataSource;

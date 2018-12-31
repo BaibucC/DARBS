@@ -5,11 +5,10 @@
  */
 package com.elbike2.model;
 
-/**
- *
- * @author user
- */
+import javax.validation.constraints.NotEmpty;
+
 public class Bike {
+
     private int id;
     private String bikename;
     private Boolean status;

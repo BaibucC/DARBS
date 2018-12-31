@@ -8,3 +8,4 @@ CREATE TABLE `contact` (
   `telephone` varchar(45) NOT NULL,
   PRIMARY KEY (`contact_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8
+
