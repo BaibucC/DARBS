@@ -24,16 +24,9 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void newEmployee(User user) {
-//        if (user.getId() > 0) {
-//            // update
-//            String sql = "UPDATE users SET employee=? WHERE id=?";
-//            jdbcTemplate.update(sql, user.getEmployee(), user.getId());
-//        } else {
-//            // insert
-            String sql = "INSERT INTO users (employee)"
-                    + " VALUES (?)";
-            jdbcTemplate.update(sql, user.getEmployee());
-//        }
+        String sql = "INSERT INTO users (employee)"
+                + " VALUES (?)";
+        jdbcTemplate.update(sql, user.getEmployee());
     }
 
     @Override
@@ -50,6 +43,14 @@ public class UserDAOImpl implements UserDAO {
             jdbcTemplate.update(sql, user.getName(), user.getEmployee(),
                     user.getDate1(), user.getDate2());
         }
+    }
+    
+        @Override
+    public void saveBikeEmployee(User user) {
+
+            String sql = "UPDATE users SET name=?, date1=?, date2=? WHERE id=?";
+            jdbcTemplate.update(sql, user.getName(),
+                    user.getDate1(), user.getDate2(), user.getId());
     }
 
     @Override
@@ -104,6 +105,34 @@ public class UserDAOImpl implements UserDAO {
             }
         });
         return listUser;
+    }
+
+    @Override
+    public List<Bike> optionBike() {
+        String sql = "SELECT * FROM elbikes";
+        List<Bike> optionBike = jdbcTemplate.query(sql, new RowMapper<Bike>() {
+            @Override
+            public Bike mapRow(ResultSet rs, int rowNum) throws SQLException {
+                Bike oBike = new Bike();
+                oBike.setBikename(rs.getString("bikename"));
+                return oBike;
+            }
+        });
+        return optionBike;
+    }
+    
+        @Override
+    public List<User> optionUser() {
+        String sql = "SELECT * FROM users";
+        List<User> optionUser = jdbcTemplate.query(sql, new RowMapper<User>() {
+            @Override
+            public User mapRow(ResultSet rs, int rowNum) throws SQLException {
+                User oUser = new User();
+                oUser.setEmployee(rs.getString("employee"));
+                return oUser;
+            }
+        });
+        return optionUser;
     }
 
     @Override

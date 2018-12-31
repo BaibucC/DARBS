@@ -14,6 +14,7 @@
             <form:form action="saveBike" method="post" modelAttribute="bike">
                 <table>
                     <form:hidden path="id"/>
+
                     <tr>
                         <td>Bike name:</td>
                         <td><form:input path="bikename" /></td>

@@ -29,7 +29,7 @@
                         <td>${user.date1}</td>
                         <td>${user.date2}</td>
                         <td>
-                            <a href="editUserBike?id=${user.id}">Edit user bike</a>
+                            <a href="editUserBike?id=${user.id}">Add/edit bike</a>
                             &nbsp;&nbsp;&nbsp;&nbsp;
                     <form:form action="removeBike" method="post">
                         <a href="removeBike?id=${user.id}">Remove bike</a>

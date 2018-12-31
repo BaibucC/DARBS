@@ -16,11 +16,15 @@
 			<form:hidden path="id"/>
 			<tr>
 				<td>Name:</td>
-				<td><form:input path="name" /></td>
+				<td><form:select path="name">
+                                             <form:option value = "NONE" label = "Select"/>
+                                             <form:options items = "${optionBike}" /></form:select></td>
 			</tr>
 			<tr>
 				<td>Employee:</td>
-				<td><form:input path="employee" /></td>
+				<td><form:select path="employee" readonly="true"  disabled="true" >
+                                             <form:option value = "NONE" label = "Select" />
+                                             <form:options items = "${optionUser}" /></form:select></td>
 			</tr>
 			<tr>
 				<td>Date1:</td>
