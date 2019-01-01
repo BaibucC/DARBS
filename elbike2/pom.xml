@@ -21,7 +21,8 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>${spring.version}</version>
+			<version>5.1.3.RELEASE</version>
+		 <type>jar</type>
 		</dependency>
 
 		<dependency>
@@ -79,6 +80,17 @@
 	  <groupId>org.webjars</groupId>
 	  <artifactId>bootstrap-timepicker</artifactId>
 	  <version>0.5.2</version>
+	 </dependency>
+	 <dependency>
+	  <groupId>joda-time</groupId>
+	  <artifactId>joda-time</artifactId>
+	  <version>2.10.1</version>
+	  <classifier>no-tzdb-javadoc</classifier>
+	 </dependency>
+	 <dependency>
+	  <groupId>com.pervasivecode</groupId>
+	  <artifactId>java-time-utils</artifactId>
+	  <version>0.9</version>
 	 </dependency>
 	</dependencies>
 

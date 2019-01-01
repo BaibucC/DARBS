@@ -8,11 +8,17 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import com.elbike2.model.User;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.web.servlet.ModelAndView;
 
 public class UserDAOImpl implements UserDAO {
 
@@ -44,13 +50,28 @@ public class UserDAOImpl implements UserDAO {
                     user.getDate1(), user.getDate2());
         }
     }
-    
-        @Override
-    public void saveBikeEmployee(User user) {
 
-            String sql = "UPDATE users SET name=?, date1=?, date2=? WHERE id=?";
-            jdbcTemplate.update(sql, user.getName(),
-                    user.getDate1(), user.getDate2(), user.getId());
+    @Override
+    public void saveBikeEmployee(User user) {
+//        if (user.getName().equals("NONE") || user.getDate1().isEmpty() || user.getDate2().isEmpty()) {
+//
+//        } else {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            try {
+                Date newDate1 = format.parse(user.getDate1());
+                Date newDate2 = format.parse(user.getDate2());
+                long d1 = newDate1.getTime();
+                long d2 = newDate2.getTime();
+                if (d1 > d2) {
+                } else {
+                    String sql = "UPDATE users SET name=?, date1=?, date2=? WHERE id=?";
+                    jdbcTemplate.update(sql, user.getName(),
+                            user.getDate1(), user.getDate2(), user.getId());
+                }
+            } catch (Exception e) {
+            }
+//        }
+
     }
 
     @Override
@@ -120,8 +141,8 @@ public class UserDAOImpl implements UserDAO {
         });
         return optionBike;
     }
-    
-        @Override
+
+    @Override
     public List<User> optionUser() {
         String sql = "SELECT * FROM users";
         List<User> optionUser = jdbcTemplate.query(sql, new RowMapper<User>() {

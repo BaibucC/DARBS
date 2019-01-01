@@ -11,14 +11,12 @@
     </head>
     <body>
         <div align="center">
-            <h1>Bike employee form</h1>
+            <h1>Give bike to an employee</h1>
             <form:form action="saveUserBike" method="post" modelAttribute="user">
-
-
-                <table>
+                <table border="1px">
                     <form:hidden path="id"/>
                     <tr>
-                        <td>Name:</td>
+                        <td>Bike name:</td>
                         <td><form:select path="name">
                                 <form:option value = "NONE" label = "Select"/>
                                 <form:options items = "${optionBike}" /></form:select></td>
@@ -30,24 +28,16 @@
                                 <form:options items = "${optionUser}" /></form:select></td>
                         </tr>
                         <tr>
-
-
-                        <div class='parent'>
+                            <td>From:</td>
+                            <td>
                             <form:input id='dt' class='input' path='date1' />
-
-                            <form:input id='dt2' class='input' path='date2' />
-                        </div>
-                        
-<!--                        <td>Date1:</td>
-                        <td><form:input path="date1" type="date" pattern="dd/mm/yyyy" />
-                        <form:input type="time" path="date1" /></td>
+                        </td>
                     </tr>
                     <tr>
-                        <td>Date2:</td>
-                        <td><form:input path="date2" type="date" />
-
-                            <form:input type="time" path="date2" /></td>-->
-                            
+                        <td>To:</td>
+                        <td>
+                            <form:input id='dt2' class='input' path='date2' />
+                        </td>
                     </tr>
                 </form:form>
                 <tr>
@@ -56,15 +46,9 @@
             </table>
 
         </div>
-      
+
         <script src='resources/datetime.js'></script>
         <script src='resources/example.js'></script>
     </body>
-
-
-
-
-
-
 </html>
 

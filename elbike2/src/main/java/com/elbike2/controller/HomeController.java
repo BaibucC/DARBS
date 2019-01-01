@@ -64,17 +64,11 @@ public class HomeController {
 
     @RequestMapping(value = "/saveUserBike", method = RequestMethod.POST)
     public ModelAndView saveUserBike(@ModelAttribute User user) {
-               ModelAndView model = new ModelAndView("BikeEmployeeForm");
-        try {
-            if (user.getName().isEmpty() || user.getDate1().isEmpty() || user.getDate2().isEmpty()) {
-
-            } else {
-                userDAO.saveBikeEmployee(user);
-                return new ModelAndView("redirect:/");
-            }
-        } catch (Exception e) {
+        ModelAndView model = new ModelAndView("BikeEmployeeForm");
+        if (user.getName().equals("NONE") || user.getDate1().isEmpty() || user.getDate2().isEmpty()) {
+            userDAO.saveBikeEmployee(user);
+            return model;
         }
- 
         model.addObject("user", user);
         return new ModelAndView("redirect:/");
     }
