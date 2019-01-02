@@ -29,10 +29,9 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void newEmployee(User user) {
         String sql = "INSERT INTO users (name, employee, date1, date2)"
-                    + " VALUES ('', ?, '', '')";
+                + " VALUES ('', ?, '', '')";
         jdbcTemplate.update(sql, user.getEmployee());
     }
-
 
     //give bike to an employee
     @Override
@@ -106,6 +105,11 @@ public class UserDAOImpl implements UserDAO {
     //delete employee
     @Override
     public void delete(int userId) {
+        String biken = "SELECT name FROM users WHERE id=" + userId;
+        biken = String.valueOf(jdbcTemplate.queryForList(biken));
+        biken = biken.replace("[{name=", "").replace("}]", "");
+        String sql2 = "UPDATE elbikes SET available=1 WHERE bikename=?";
+        jdbcTemplate.update(sql2, biken);
         String sql = "DELETE FROM users WHERE id=?";
         jdbcTemplate.update(sql, userId);
     }
