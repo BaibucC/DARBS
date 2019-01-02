@@ -140,20 +140,6 @@ public class UserDAOImpl implements UserDAO {
         return listUser;
     }
 
-    //
-//    @Override
-//    public List<Bike> optionBike() {
-//        String sql = "SELECT * FROM elbikes";
-//        List<Bike> optionBike = jdbcTemplate.query(sql, new RowMapper<Bike>() {
-//            @Override
-//            public Bike mapRow(ResultSet rs, int rowNum) throws SQLException {
-//                Bike oBike = new Bike();
-//                oBike.setBikename(rs.getString("bikename"));
-//                return oBike;
-//            }
-//        });
-//        return optionBike;
-//    }
     //displays employee in employee dropdown list
     @Override
     public List<User> optionUser() {

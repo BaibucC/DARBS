@@ -102,14 +102,22 @@ td {
     padding-right: 5px;
 }
 
+.error{
+    border-width: 0px;
+    font-family: Tahoma;
+    font-weight: normal;
+    font-size: 12px;
+    color: red;
+}
+
 td.tablerow{
-        border-width: 0px;
-        vertical-align: top;
+    border-width: 0px;
+    vertical-align: top;
 }
 
 td.newtable{
-        border-width: 0px;
-        vertical-align: middle;
+    border-width: 0px;
+    vertical-align: middle;
 }
 
 h3{

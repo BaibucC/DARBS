@@ -15,7 +15,6 @@
             <form:form action="saveBike" method="post" modelAttribute="bike">
                 <table  align="center" class="tables">
                     <form:hidden path="id"/>
-
                     <tr>
                         <td><b>Bike name:</b></td>
                         <td colspan="2"><form:input path="bikename" /></td>
@@ -25,20 +24,12 @@
                         <td class="newtable"><form:radiobutton path="status" value="1" /> Working</td>
                         <td class="newtable"><form:radiobutton path="status" value="0" /> Out of order</td>
                     </tr>
-<!--                    <tr class="newtable">
-                        <td class="newtable"><b>In use:</b></td>
-                        <td class="newtable"><form:radiobutton path="available" value="0" /> Vacant</td>
-                        <td class="newtable"><form:radiobutton path="available" value="1" /> In use</td>
-                    </tr>-->
                 </form:form>
                 <tr>
                     <td class="newtable" colspan="3" align="center"><input type="submit" value="Save"><a href="/ElBike/"><input type="button" value="Cancel"></a></td>
                 </tr>
-                <tr>
-                    <td class="newtable">Messages</td>
-                </tr>
             </table>
-
+            <div colspan="2" class="error">${error}</div>
         </div>
     </body>
 </html>

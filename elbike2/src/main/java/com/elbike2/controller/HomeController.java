@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import com.elbike2.dao.UserDAO;
 import com.elbike2.model.Bike;
+import com.sun.xml.internal.ws.api.message.Message;
 import java.util.ArrayList;
 
 @Controller
@@ -61,36 +62,44 @@ public class HomeController {
     //controller for saving employee
     @RequestMapping(value = "/saveEmployee", method = RequestMethod.POST)
     public ModelAndView saveEmployee(@ModelAttribute User user) {
+        ModelAndView model = new ModelAndView("EmployeeForm");
+        model.addObject("user", user);
         if (user.getEmployee().isEmpty()) {
-            //do something
+            model.addObject("error", "Employee name required!");
         } else {
             userDAO.newEmployee(user);
             return new ModelAndView("redirect:/");
         }
-        ModelAndView model = new ModelAndView("EmployeeForm");
-        model.addObject("user", user);
+
         return model;
     }
 
     //controller for saving new bike
     @RequestMapping(value = "/saveBike", method = RequestMethod.POST)
     public ModelAndView saveBike(@ModelAttribute Bike bike) {
-        try {
-            if (bike.getBikename().isEmpty() || bike.getStatus().equals(null)) {
-            } else {
-                userDAO.saveOrUpdateBike(bike);
-                return new ModelAndView("redirect:/");
-            }
-        } catch (Exception e) {
-        }
         ModelAndView model = new ModelAndView("BikeForm");
         model.addObject("bike", bike);
+        bike.getStatus();
+        try {
+            if (bike.getBikename().isEmpty() || bike.getStatus().equals(null)) {
+                if (bike.getBikename().isEmpty() || bike.getStatus().equals(null)) {
+                    model.addObject("error", "All fields required!");
+                } else {
+                    userDAO.saveOrUpdateBike(bike);
+                    return new ModelAndView("redirect:/");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(bike.getStatus());
+        }
+
         return model;
     }
 
     //controller for removing bike from employee
     @RequestMapping(value = "/removeBike", method = RequestMethod.GET)
-    public ModelAndView removeBike(HttpServletRequest request) {
+    public ModelAndView removeBike(HttpServletRequest request
+    ) {
         int userId = Integer.parseInt(request.getParameter("id"));
         userDAO.removeBike(userId);
         return new ModelAndView("redirect:/");
@@ -98,7 +107,8 @@ public class HomeController {
 
     //controller for deleting employee from list
     @RequestMapping(value = "/deleteUser", method = RequestMethod.GET)
-    public ModelAndView deleteUser(HttpServletRequest request) {
+    public ModelAndView deleteUser(HttpServletRequest request
+    ) {
         int userId = Integer.parseInt(request.getParameter("id"));
         userDAO.delete(userId);
         return new ModelAndView("redirect:/");
@@ -106,7 +116,8 @@ public class HomeController {
 
     //controller for deleting bike from list
     @RequestMapping(value = "/deleteBike", method = RequestMethod.GET)
-    public ModelAndView deleteBike(HttpServletRequest request) {
+    public ModelAndView deleteBike(HttpServletRequest request
+    ) {
         int bikeId = Integer.parseInt(request.getParameter("id"));
         userDAO.deleteBike(bikeId);
         return new ModelAndView("redirect:/");
@@ -114,29 +125,20 @@ public class HomeController {
 
     //controller for associating bike with an employee
     @RequestMapping(value = "/saveUserBike", method = RequestMethod.POST)
-    public ModelAndView saveUserBike(@ModelAttribute User user) {
+    public ModelAndView saveUserBike(@ModelAttribute User user
+    ) {
         ModelAndView model = new ModelAndView("BikeEmployeeForm");
         if (!user.getName().equals("NONE") || !user.getDate1().isEmpty() || !user.getDate2().isEmpty()) {
+            model.addObject("error", "All fields required!");
+        }
             userDAO.saveBikeEmployee(user);
             return new ModelAndView("redirect:/");
-        }
-
-        return model;
     }
 
-//    @RequestMapping(value = "/editUser", method = RequestMethod.GET)
-//    public ModelAndView editUser(HttpServletRequest request) {
-//        int userId = Integer.parseInt(request.getParameter("id"));
-//        User user = userDAO.get(userId);
-//        ModelAndView model = new ModelAndView("EmployeeForm");
-//        model.addObject("user", user);
-//
-//        return model;
-//    }
-    
     //controller for editing user/bike list, opening editing form
     @RequestMapping(value = "/editUserBike", method = RequestMethod.GET)
-    public ModelAndView editUserBike(HttpServletRequest request) {
+    public ModelAndView editUserBike(HttpServletRequest request
+    ) {
         int userId = Integer.parseInt(request.getParameter("id"));
         User user = userDAO.get(userId);
         //open form
@@ -145,7 +147,7 @@ public class HomeController {
         //list of bikes
         List<Bike> listAvailable = userDAO.listAvailable();
         ArrayList<String> options = new ArrayList<>();
-                //get current bike name associated with employee
+        //get current bike name associated with employee
         String bikenameCurrent = user.getName();
         //add current bike to the list
         if (!bikenameCurrent.isEmpty()) {
@@ -166,8 +168,10 @@ public class HomeController {
         return model;
     }
 
+    //controller for editing bike
     @RequestMapping(value = "/editBike", method = RequestMethod.GET)
-    public ModelAndView editBike(HttpServletRequest request) {
+    public ModelAndView editBike(HttpServletRequest request
+    ) {
         int bikeId = Integer.parseInt(request.getParameter("id"));
         Bike bike = userDAO.getBike(bikeId);
         ModelAndView model = new ModelAndView("BikeForm");

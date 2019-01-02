@@ -45,7 +45,7 @@
                     <td colspan="2" align="center"><input type="submit" value="Save"><a href="/ElBike/"><input type="button" value="Cancel" /></a></<td>
                 </tr>
             </table>
-
+            <div colspan="2" class="error">${error}</div>
         </div>
 
         <script src='resources/datetime.js'></script>
