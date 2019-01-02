@@ -81,8 +81,9 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/removeBike", method = RequestMethod.GET)
-    public ModelAndView removeBike(@ModelAttribute User user) {
-        userDAO.removeBike(user);
+    public ModelAndView removeBike(HttpServletRequest request) {
+        int userId = Integer.parseInt(request.getParameter("id"));
+        userDAO.removeBike(userId);
         return new ModelAndView("redirect:/");
     }
 

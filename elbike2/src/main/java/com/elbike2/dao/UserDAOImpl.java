@@ -64,9 +64,9 @@ public class UserDAOImpl implements UserDAO {
             long d2 = newDate2.getTime();
             if (d1 > d2) {
             } else {
-                String sql = "UPDATE users SET name=?, date1=?, date2=? WHERE id=?";
+                String sql = "UPDATE users SET name=?, date1=?, date2=?, bikeid=? WHERE id=?";
                 jdbcTemplate.update(sql, user.getName(),
-                        user.getDate1(), user.getDate2(), user.getId());
+                        user.getDate1(), user.getDate2(), user.getBikeid(), user.getId());
                 String sql2 = "UPDATE elbikes SET inuse=1 WHERE bikename=?";
                 jdbcTemplate.update(sql2, user.getName());
             }
@@ -77,11 +77,12 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void removeBike(User user) {
-        int userId = user.getId();
-        String biken = user.getName();
-        String sql2 = "UPDATE elbikes SET inuse=0 WHERE bikename=" + biken;
-        jdbcTemplate.update(sql2);
+    public void removeBike(int userId) {
+        String biken = "SELECT name FROM users WHERE id=" + userId;
+        biken = String.valueOf(jdbcTemplate.queryForList(biken));
+        biken = biken.replace("[{name=", "").replace("}]", "");
+        String sql2 = "UPDATE elbikes SET inuse=0 WHERE bikename=?";
+        jdbcTemplate.update(sql2, biken);
         String sql = "UPDATE users SET name='', date1='', date2='' WHERE id=" + userId;
         jdbcTemplate.update(sql);
     }
@@ -126,6 +127,7 @@ public class UserDAOImpl implements UserDAO {
                 aUser.setEmployee(rs.getString("employee"));
                 aUser.setDate1(rs.getString("date1"));
                 aUser.setDate2(rs.getString("date2"));
+                aUser.setBikeid(rs.getString("bikeid"));
 
                 return aUser;
             }
@@ -234,6 +236,7 @@ public class UserDAOImpl implements UserDAO {
                     user.setEmployee(rs.getString("employee"));
                     user.setDate1(rs.getString("date1"));
                     user.setDate2(rs.getString("date2"));
+                    user.setBikeid(rs.getString("bikeid"));
                     return user;
                 }
 
