@@ -1,11 +1,10 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <head>
-    <spring:url value="/resources/style.css" var="style" />
-    <link href="${style}" rel="stylesheet" />
+<link href='resources/style.css' rel='stylesheet' type='text/css' />
 </head>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <nav class="navbar">
     <div id="navigation">

@@ -14,18 +14,19 @@
     <body>
         <div>
             <table class="tables" align="center">
+                <h3>Electric bike administration list</h3>
                 <th>No</th>
-                <th>Bike ID</th>
                 <th>Employee</th>
-                <th>Date1</th>
-                <th>Date2</th>
+                <th>Bike ID</th>
+                <th>From date:</th>
+                <th>To date:</th>
                 <th>Actions</th>
 
                 <c:forEach var="user" items="${listUser}" varStatus="status">
                     <tr>
                         <td width="20px">${status.index + 1}</td>
-                        <td width="80px">${user.name}</td>
                         <td width="150px">${user.employee}</td>
+                        <td width="80px">${user.name}</td>
                         <td width="100px">${user.date1}</td>
                         <td width="100px">${user.date2}</td>
                         <td>
@@ -48,7 +49,7 @@
                             <th>Status</th>
                             <th>Available</th>
                             <th>Actions</th>
-                            <c:forEach var="bike" items="${listBike}" varStatus="status">
+                                <c:forEach var="bike" items="${listBike}" varStatus="status">
                                 <tr>
                                     <td>${bike.bikename}</td>
                                     <td width="50px" align="center">

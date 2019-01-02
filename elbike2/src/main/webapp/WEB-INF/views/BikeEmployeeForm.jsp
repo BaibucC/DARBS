@@ -17,16 +17,16 @@
                 <table align="center" class="tables">
                     <form:hidden path="id"/>
                     <tr>
-                        <td>Bike name:</td>
-                        <td><form:select path="name">
-                                <form:option value = "NONE" label = "Select"/>
-                                <form:options items = "${listAvailable}" /></form:select></td>
-                        </tr>
-                        <tr>
-                            <td>Employee:</td>
-                            <td><form:select path="employee" readonly="true"  disabled="true" >
+                        <td>Employee:</td>
+                        <td><form:select path="employee" readonly="true"  disabled="true" >
                                 <form:option value = "NONE" label = "Select" />
                                 <form:options items = "${optionUser}" /></form:select></td>
+                        </tr>
+                        <tr>
+                            <td>Bike name:</td>
+                            <td><form:select path="name">
+                                <form:option value = "NONE" label = "Select"/>
+                                <form:options items = "${listAvailable}" /></form:select></td>
                         </tr>
                         <tr>
                             <td>From:</td>

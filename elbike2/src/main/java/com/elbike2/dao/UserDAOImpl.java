@@ -96,8 +96,8 @@ public class UserDAOImpl implements UserDAO {
         } else {
             // insert
             String sql = "INSERT INTO elbikes (bikename, status, inuse)"
-                    + " VALUES (?, ?, ?)";
-            jdbcTemplate.update(sql, bike.getBikename(), bike.getStatus(), bike.getInuse());
+                    + " VALUES (?, ?, 0)";
+            jdbcTemplate.update(sql, bike.getBikename(), bike.getStatus());
         }
     }
 

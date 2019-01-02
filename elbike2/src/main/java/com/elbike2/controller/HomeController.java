@@ -90,7 +90,7 @@ public class HomeController {
     @RequestMapping(value = "/saveBike", method = RequestMethod.POST)
     public ModelAndView saveBike(@ModelAttribute Bike bike) {
         try {
-            if (bike.getBikename().isEmpty() || bike.getStatus().equals(null) || bike.getInuse().equals(null)) {
+            if (bike.getBikename().isEmpty() || bike.getStatus().equals(null)) {
             } else {
                 userDAO.saveOrUpdateBike(bike);
                 return new ModelAndView("redirect:/");
