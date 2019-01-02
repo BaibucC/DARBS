@@ -30,7 +30,10 @@ public interface UserDAO {
 
     public List<Bike> listBike();
 
+    public List<Bike> listAvailable();
+
     public List<Bike> optionBike();
-    
+
     public void saveBikeEmployee(User user);
+
 }

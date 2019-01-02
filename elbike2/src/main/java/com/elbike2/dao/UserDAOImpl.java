@@ -56,20 +56,22 @@ public class UserDAOImpl implements UserDAO {
 //        if (user.getName().equals("NONE") || user.getDate1().isEmpty() || user.getDate2().isEmpty()) {
 //
 //        } else {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-            try {
-                Date newDate1 = format.parse(user.getDate1());
-                Date newDate2 = format.parse(user.getDate2());
-                long d1 = newDate1.getTime();
-                long d2 = newDate2.getTime();
-                if (d1 > d2) {
-                } else {
-                    String sql = "UPDATE users SET name=?, date1=?, date2=? WHERE id=?";
-                    jdbcTemplate.update(sql, user.getName(),
-                            user.getDate1(), user.getDate2(), user.getId());
-                }
-            } catch (Exception e) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        try {
+            Date newDate1 = format.parse(user.getDate1());
+            Date newDate2 = format.parse(user.getDate2());
+            long d1 = newDate1.getTime();
+            long d2 = newDate2.getTime();
+            if (d1 > d2) {
+            } else {
+                String sql = "UPDATE users SET name=?, date1=?, date2=? WHERE id=?";
+                jdbcTemplate.update(sql, user.getName(),
+                        user.getDate1(), user.getDate2(), user.getId());
+                String sql2 = "UPDATE elbikes SET inuse=1 WHERE bikename=?";
+                jdbcTemplate.update(sql2, user.getName());
             }
+        } catch (Exception e) {
+        }
 //        }
 
     }
@@ -77,6 +79,9 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void removeBike(User user) {
         int userId = user.getId();
+        String biken = user.getName();
+        String sql2 = "UPDATE elbikes SET inuse=0 WHERE bikename=" + biken;
+        jdbcTemplate.update(sql2);
         String sql = "UPDATE users SET name='', date1='', date2='' WHERE id=" + userId;
         jdbcTemplate.update(sql);
     }
@@ -109,7 +114,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public List<User> list() {
-        String sql = "SELECT * FROM users";
+        String sql = "SELECT * FROM users ORDER BY date2 DESC";
         List<User> listUser = jdbcTemplate.query(sql, new RowMapper<User>() {
 
             @Override
@@ -158,7 +163,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public List<Bike> listBike() {
-        String sql = "SELECT * FROM elbikes";
+        String sql = "SELECT * FROM elbikes ORDER BY status DESC, inuse ASC";
         List<Bike> listBike = jdbcTemplate.query(sql, new RowMapper<Bike>() {
             @Override
             public Bike mapRow(ResultSet rs2, int rowNum) throws SQLException {
@@ -169,8 +174,28 @@ public class UserDAOImpl implements UserDAO {
                 abike.setInuse(rs2.getBoolean("inuse"));
                 return abike;
             }
+
         });
+
+        listBike.get(0).getStatus().equals("1");
         return listBike;
+    }
+
+    @Override
+    public List<Bike> listAvailable() {
+        String sql = "SELECT * FROM elbikes WHERE status=1 AND inuse=0";
+        List<Bike> listAvailable = jdbcTemplate.query(sql, new RowMapper<Bike>() {
+            @Override
+            public Bike mapRow(ResultSet rs2, int rowNum) throws SQLException {
+                Bike abike = new Bike();
+                abike.setId(rs2.getInt("id"));
+                abike.setBikename(rs2.getString("bikename"));
+                abike.setStatus(rs2.getBoolean("status"));
+                abike.setInuse(rs2.getBoolean("inuse"));
+                return abike;
+            }
+        });
+        return listAvailable;
     }
 
     @Override

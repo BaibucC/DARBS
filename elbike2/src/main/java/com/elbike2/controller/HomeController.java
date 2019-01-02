@@ -28,6 +28,13 @@ public class HomeController {
         model.addObject("listUser", listUser);
         List<Bike> listBike = userDAO.listBike();
         model.addObject("listBike", listBike);
+        List<Bike> listAvailable = userDAO.listAvailable();
+        model.addObject("listAvailable", listAvailable);
+        Bike bike = new Bike();
+        String inusestring = String.valueOf(bike.getInuse());
+        model.addObject(inusestring);
+        String statusstring = String.valueOf(bike.getStatus());
+        model.addObject(statusstring);
         model.setViewName("home");
 
         return model;
@@ -65,12 +72,12 @@ public class HomeController {
     @RequestMapping(value = "/saveUserBike", method = RequestMethod.POST)
     public ModelAndView saveUserBike(@ModelAttribute User user) {
         ModelAndView model = new ModelAndView("BikeEmployeeForm");
-        if (user.getName().equals("NONE") || user.getDate1().isEmpty() || user.getDate2().isEmpty()) {
+        if (!user.getName().equals("NONE") || !user.getDate1().isEmpty() || !user.getDate2().isEmpty()) {
             userDAO.saveBikeEmployee(user);
-            return model;
+            return new ModelAndView("redirect:/");
         }
-        model.addObject("user", user);
-        return new ModelAndView("redirect:/");
+
+        return model;
     }
 
     @RequestMapping(value = "/removeBike", method = RequestMethod.GET)
@@ -124,14 +131,14 @@ public class HomeController {
         User user = userDAO.get(userId);
         ModelAndView model = new ModelAndView("BikeEmployeeForm");
         model.addObject("user", user);
-        List<Bike> optionBike = userDAO.optionBike();
+        List<Bike> listAvailable = userDAO.listAvailable();
         ArrayList<String> options = new ArrayList<>();
         String bikename;
-        for (int i = 0; i < optionBike.size(); i++) {
-            bikename = optionBike.get(i).getBikename();
+        for (int i = 0; i < listAvailable.size(); i++) {
+            bikename = listAvailable.get(i).getBikename();
             options.add(bikename);
         }
-        model.addObject("optionBike", options);
+        model.addObject("listAvailable", options);
 
         List<User> optionUser = userDAO.optionUser();
         ArrayList<String> options2 = new ArrayList<>();

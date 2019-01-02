@@ -9,6 +9,7 @@ public class User {
     private String employee;
     private String date1;
     private String date2;
+    private String bikeid;
 
     public User() {
     }
@@ -18,6 +19,7 @@ public class User {
         this.employee = employee;
         this.date1 = address;
         this.date2 = telephone;
+        this.bikeid = bikeid;
     }
 
     public int getId() {
@@ -58,6 +60,14 @@ public class User {
 
     public void setDate2(String date2) {
         this.date2 = date2;
+    }
+
+    public String getBikeid() {
+        return bikeid;
+    }
+
+    public void setBikeid(String date2) {
+        this.bikeid = bikeid;
     }
 
 }

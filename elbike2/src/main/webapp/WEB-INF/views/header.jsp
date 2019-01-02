@@ -8,11 +8,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <nav class="navbar">
-    <div class="container">
-            <ul>
-                <li><a href="/ElBike">Contact List</a></li>
-                <li><a href="newBike">New Bike</a></li>
-                <li><a href="newEmployee">New Employee</a></li>
-            </ul>
+    <div id="navigation">
+        <table align="center" class="navtable">
+            <tr>
+                <a href="/ElBike" class="navlink">Electric bike administration</a>
+                <a href="newBike" class="navlink">New Bike</a>
+                <a href="newEmployee" class="navlink">New Employee</a>
+            </tr>
+        </table>           
     </div>
 </nav>

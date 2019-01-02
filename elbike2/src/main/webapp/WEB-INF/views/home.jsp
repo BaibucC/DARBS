@@ -12,57 +12,81 @@
     <jsp:include page="../views/header.jsp" />
 
     <body>
-        <div align="center">
-            <table border="1">
+        <div>
+            <table class="tables" align="center">
                 <th>No</th>
-                <th>Name</th>
+                <th>Bike ID</th>
                 <th>Employee</th>
                 <th>Date1</th>
                 <th>Date2</th>
-                <th>Action</th>
+                <th>Actions</th>
 
                 <c:forEach var="user" items="${listUser}" varStatus="status">
                     <tr>
-                        <td>${status.index + 1}</td>
-                        <td>${user.name}</td>
-                        <td>${user.employee}</td>
-                        <td>${user.date1}</td>
-                        <td>${user.date2}</td>
+                        <td width="20px">${status.index + 1}</td>
+                        <td width="80px">${user.name}</td>
+                        <td width="150px">${user.employee}</td>
+                        <td width="100px">${user.date1}</td>
+                        <td width="100px">${user.date2}</td>
                         <td>
-                            <a href="editUserBike?id=${user.id}">Add/edit bike</a>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a class = "button" href="editUserBike?id=${user.id}">Add/edit bike</a>
                     <form:form action="removeBike" method="post">
-                        <a href="removeBike?id=${user.id}">Remove bike</a>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <a class = "button" href="removeBike?id=${user.id}">Remove bike</a>
                     </form:form>
-                    <a href="deleteUser?id=${user.id}">Delete employee</a>
+                    <a class = "buttonDelete" href="deleteUser?id=${user.id}">Delete employee</a>
                     </td>
 
                     </tr>
                 </c:forEach>	        	
             </table>
         </div>
-<div align="center">
-            <table border="1">
-                <h3>Bike list</h3>
-                <th>Bikename</th>
-                <th>Status</th>
-                <th>In use</th>
+        <div align="center">
+            <table class="tablel"><tr><td class="tablerow">
+                        <table class="tables">
+                            <h3>All bikes</h3>
+                            <th>Bike ID</th>
+                            <th>Status</th>
+                            <th>Available</th>
+                            <th>Actions</th>
+                            <c:forEach var="bike" items="${listBike}" varStatus="status">
+                                <tr>
+                                    <td>${bike.bikename}</td>
+                                    <td width="50px" align="center">
+                                        <img src="resources/status${bike.status}.png" />
+                                    </td>
+                                    <td width="50px" align="center">
+                                        <img src="resources/inuse${bike.inuse}.png" />
+                                    </td>
+                                    <td>
+                                        <a class = "button" href="editBike?id=${bike.id}">Edit</a>
+                                        <a class = "buttonDelete" href="deleteBike?id=${bike.id}">Delete</a>
+                                    </td>
 
-                <c:forEach var="bike" items="${listBike}" varStatus="status">
-                    <tr>
-                        <td>${bike.bikename}</td>
-                        <td>${bike.status}</td>
-                        <td>${bike.inuse}</td>
-                        <td>
-                            <a href="editBike?id=${bike.id}">Edit</a>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <a href="deleteBike?id=${bike.id}">Delete</a>
-                        </td>
+                                </tr>
+                            </c:forEach>	        	
+                        </table>
+                    </td><td  class="tablerow">
+                        <table class="tables">
+                            <h3>Available bikes</h3>
+                            <th>Bike ID</th>
+                            <th width="50px">Status</th>
+                            <th width="50px">Available</th>
 
-                    </tr>
-                </c:forEach>	        	
-            </table>
+                            <c:forEach var="bike" items="${listAvailable}" varStatus="status">
+                                <tr>
+                                    <td>${bike.bikename}</td>
+                                    <td width="50px" align="center">
+                                        <img src="resources/status${bike.status}.png" />
+                                    </td>
+                                    <td width="50px" align="center">
+                                        <img src="resources/inuse${bike.inuse}.png" />
+                                    </td>
+
+                                </tr>
+                            </c:forEach>	        	
+                        </table>
+                    </td>
+                </tr></table>
         </div>
 
         <jsp:include page="../views/footer.jsp" />

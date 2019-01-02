@@ -4,22 +4,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
     "http://www.w3.org/TR/html4/loose.dtd">
 <link href='resources/datetime.css' rel='stylesheet' type='text/css' />
+<link href='resources/style.css' rel='stylesheet' type='text/css' />
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>New employee</title>
     </head>
     <body>
-        <div align="center">
+        <div align="center" class="tablel">
             <h1>Give bike to an employee</h1>
             <form:form action="saveUserBike" method="post" modelAttribute="user">
-                <table border="1px">
+                <table align="center" class="tables">
                     <form:hidden path="id"/>
                     <tr>
                         <td>Bike name:</td>
                         <td><form:select path="name">
                                 <form:option value = "NONE" label = "Select"/>
-                                <form:options items = "${optionBike}" /></form:select></td>
+                                <form:options items = "${listAvailable}" /></form:select></td>
                         </tr>
                         <tr>
                             <td>Employee:</td>
