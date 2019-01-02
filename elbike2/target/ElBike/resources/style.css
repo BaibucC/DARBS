@@ -81,7 +81,7 @@ a.buttonDelete:hover {
     font-weight: normal;
     font-size: 12px;
     text-align: left;
-
+    margin-bottom: 20px;
 }
 
 th {
@@ -98,7 +98,8 @@ td {
     border-style: solid;
     border-color: darkgrey;
     height: 25px;
-    
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 td.tablerow{

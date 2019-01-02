@@ -8,8 +8,6 @@ import java.util.ArrayList;
 
 public interface UserDAO {
 
-    public void saveOrUpdate(User user);
-
     public void newEmployee(User user);
 
     public void delete(int userId);
@@ -31,8 +29,6 @@ public interface UserDAO {
     public List<Bike> listBike();
 
     public List<Bike> listAvailable();
-
-    public List<Bike> optionBike();
 
     public void saveBikeEmployee(User user);
 

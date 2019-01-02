@@ -25,8 +25,8 @@
                 <c:forEach var="user" items="${listUser}" varStatus="status">
                     <tr>
                         <td width="20px">${status.index + 1}</td>
-                        <td width="150px">${user.employee}</td>
-                        <td width="80px">${user.name}</td>
+                        <td>${user.employee}</td>
+                        <td>${user.name}</td>
                         <td width="100px">${user.date1}</td>
                         <td width="100px">${user.date2}</td>
                         <td>
@@ -41,8 +41,9 @@
                 </c:forEach>	        	
             </table>
         </div>
+        <hr>
         <div align="center">
-            <table class="tablel"><tr><td class="tablerow">
+            <table><tr><td class="tablerow">
                         <table class="tables">
                             <h3>All bikes</h3>
                             <th>Bike ID</th>
@@ -53,10 +54,10 @@
                                 <tr>
                                     <td>${bike.bikename}</td>
                                     <td width="50px" align="center">
-                                        <img src="resources/status${bike.status}.png" />
+                                        <img src="resources/${bike.status}.png" />
                                     </td>
                                     <td width="50px" align="center">
-                                        <img src="resources/inuse${bike.inuse}.png" />
+                                        <img src="resources/${bike.available}.png" />
                                     </td>
                                     <td>
                                         <a class = "button" href="editBike?id=${bike.id}">Edit</a>
@@ -77,10 +78,10 @@
                                 <tr>
                                     <td>${bike.bikename}</td>
                                     <td width="50px" align="center">
-                                        <img src="resources/status${bike.status}.png" />
+                                        <img src="resources/${bike.status}.png" />
                                     </td>
                                     <td width="50px" align="center">
-                                        <img src="resources/inuse${bike.inuse}.png" />
+                                        <img src="resources/${bike.available}.png" />
                                     </td>
 
                                 </tr>

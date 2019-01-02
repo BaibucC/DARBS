@@ -22,6 +22,7 @@ public class HomeController {
     @Autowired
     private UserDAO userDAO;
 
+    //homepage controller
     @RequestMapping(value = "/")
     public ModelAndView listUser(ModelAndView model) throws IOException {
         List<User> listUser = userDAO.list();
@@ -31,15 +32,15 @@ public class HomeController {
         List<Bike> listAvailable = userDAO.listAvailable();
         model.addObject("listAvailable", listAvailable);
         Bike bike = new Bike();
-        String inusestring = String.valueOf(bike.getInuse());
-        model.addObject(inusestring);
+        String availablestring = String.valueOf(bike.getAvailable());
+        model.addObject(availablestring);
         String statusstring = String.valueOf(bike.getStatus());
         model.addObject(statusstring);
         model.setViewName("home");
-
         return model;
     }
 
+    //controller for new employee form
     @RequestMapping(value = "/newEmployee", method = RequestMethod.GET)
     public ModelAndView newEmployee(ModelAndView model) {
         User newUser = new User();
@@ -48,6 +49,7 @@ public class HomeController {
         return model;
     }
 
+    //controller for new bike form
     @RequestMapping(value = "/newBike", method = RequestMethod.GET)
     public ModelAndView newBike(ModelAndView model) {
         Bike newBike = new Bike();
@@ -56,8 +58,9 @@ public class HomeController {
         return model;
     }
 
+    //controller for saving employee
     @RequestMapping(value = "/saveEmployee", method = RequestMethod.POST)
-    public ModelAndView saveBike(@ModelAttribute User user) {
+    public ModelAndView saveEmployee(@ModelAttribute User user) {
         if (user.getEmployee().isEmpty()) {
             //do something
         } else {
@@ -69,24 +72,7 @@ public class HomeController {
         return model;
     }
 
-    @RequestMapping(value = "/saveUserBike", method = RequestMethod.POST)
-    public ModelAndView saveUserBike(@ModelAttribute User user) {
-        ModelAndView model = new ModelAndView("BikeEmployeeForm");
-        if (!user.getName().equals("NONE") || !user.getDate1().isEmpty() || !user.getDate2().isEmpty()) {
-            userDAO.saveBikeEmployee(user);
-            return new ModelAndView("redirect:/");
-        }
-
-        return model;
-    }
-
-    @RequestMapping(value = "/removeBike", method = RequestMethod.GET)
-    public ModelAndView removeBike(HttpServletRequest request) {
-        int userId = Integer.parseInt(request.getParameter("id"));
-        userDAO.removeBike(userId);
-        return new ModelAndView("redirect:/");
-    }
-
+    //controller for saving new bike
     @RequestMapping(value = "/saveBike", method = RequestMethod.POST)
     public ModelAndView saveBike(@ModelAttribute Bike bike) {
         try {
@@ -102,6 +88,15 @@ public class HomeController {
         return model;
     }
 
+    //controller for removing bike from employee
+    @RequestMapping(value = "/removeBike", method = RequestMethod.GET)
+    public ModelAndView removeBike(HttpServletRequest request) {
+        int userId = Integer.parseInt(request.getParameter("id"));
+        userDAO.removeBike(userId);
+        return new ModelAndView("redirect:/");
+    }
+
+    //controller for deleting employee from list
     @RequestMapping(value = "/deleteUser", method = RequestMethod.GET)
     public ModelAndView deleteUser(HttpServletRequest request) {
         int userId = Integer.parseInt(request.getParameter("id"));
@@ -109,6 +104,7 @@ public class HomeController {
         return new ModelAndView("redirect:/");
     }
 
+    //controller for deleting bike from list
     @RequestMapping(value = "/deleteBike", method = RequestMethod.GET)
     public ModelAndView deleteBike(HttpServletRequest request) {
         int bikeId = Integer.parseInt(request.getParameter("id"));
@@ -116,40 +112,57 @@ public class HomeController {
         return new ModelAndView("redirect:/");
     }
 
-    @RequestMapping(value = "/editUser", method = RequestMethod.GET)
-    public ModelAndView editUser(HttpServletRequest request) {
-        int userId = Integer.parseInt(request.getParameter("id"));
-        User user = userDAO.get(userId);
-        ModelAndView model = new ModelAndView("EmployeeForm");
-        model.addObject("user", user);
+    //controller for associating bike with an employee
+    @RequestMapping(value = "/saveUserBike", method = RequestMethod.POST)
+    public ModelAndView saveUserBike(@ModelAttribute User user) {
+        ModelAndView model = new ModelAndView("BikeEmployeeForm");
+        if (!user.getName().equals("NONE") || !user.getDate1().isEmpty() || !user.getDate2().isEmpty()) {
+            userDAO.saveBikeEmployee(user);
+            return new ModelAndView("redirect:/");
+        }
 
         return model;
     }
 
+//    @RequestMapping(value = "/editUser", method = RequestMethod.GET)
+//    public ModelAndView editUser(HttpServletRequest request) {
+//        int userId = Integer.parseInt(request.getParameter("id"));
+//        User user = userDAO.get(userId);
+//        ModelAndView model = new ModelAndView("EmployeeForm");
+//        model.addObject("user", user);
+//
+//        return model;
+//    }
+    
+    //controller for editing user/bike list, opening editing form
     @RequestMapping(value = "/editUserBike", method = RequestMethod.GET)
     public ModelAndView editUserBike(HttpServletRequest request) {
         int userId = Integer.parseInt(request.getParameter("id"));
         User user = userDAO.get(userId);
+        //open form
         ModelAndView model = new ModelAndView("BikeEmployeeForm");
         model.addObject("user", user);
+        //list of bikes
         List<Bike> listAvailable = userDAO.listAvailable();
         ArrayList<String> options = new ArrayList<>();
+                //get current bike name associated with employee
+        String bikenameCurrent = user.getName();
+        //add current bike to the list
+        if (!bikenameCurrent.isEmpty()) {
+            options.add(bikenameCurrent);
+        }
+        //listing other available bikes to choose from
         String bikename;
         for (int i = 0; i < listAvailable.size(); i++) {
             bikename = listAvailable.get(i).getBikename();
             options.add(bikename);
         }
         model.addObject("listAvailable", options);
-
-        List<User> optionUser = userDAO.optionUser();
+        //display employee name
         ArrayList<String> options2 = new ArrayList<>();
-        String username;
-        for (int i = 0; i < optionUser.size(); i++) {
-            username = optionUser.get(i).getEmployee();
-            options2.add(username);
-        }
+        String username = user.getEmployee();
+        options2.add(username);
         model.addObject("optionUser", options2);
-        model.addObject("user", user);
         return model;
     }
 

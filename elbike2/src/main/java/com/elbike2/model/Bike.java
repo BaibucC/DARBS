@@ -12,16 +12,16 @@ public class Bike {
     private int id;
     private String bikename;
     private Boolean status;
-    private Boolean inuse;
+    private Boolean available;
 
     public Bike() {
     }
 
-    public Bike(String bikename, Boolean status, Boolean inuse) {
+    public Bike(String bikename, Boolean status, Boolean available) {
         this.id = id;
         this.bikename = bikename;
         this.status = status;
-        this.inuse = inuse;
+        this.available = available;
     }
 
     /**
@@ -53,17 +53,17 @@ public class Bike {
     }
 
     /**
-     * @return the inuse
+     * @return the available
      */
-    public Boolean getInuse() {
-        return inuse;
+    public Boolean getAvailable() {
+        return available;
     }
 
     /**
-     * @param inuse the inuse to set
+     * @param available the available to set
      */
-    public void setInuse(Boolean inuse) {
-        this.inuse = inuse;
+    public void setAvailable(Boolean available) {
+        this.available = available;
     }
 
     /**

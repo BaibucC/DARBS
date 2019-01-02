@@ -24,7 +24,7 @@
                         </tr>
                         <tr>
                             <td>Bike name:</td>
-                            <td><form:select path="name">
+                            <td><form:select path="name" >
                                 <form:option value = "NONE" label = "Select"/>
                                 <form:options items = "${listAvailable}" /></form:select></td>
                         </tr>

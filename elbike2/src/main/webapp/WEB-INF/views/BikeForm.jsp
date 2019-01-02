@@ -27,8 +27,8 @@
                     </tr>
 <!--                    <tr class="newtable">
                         <td class="newtable"><b>In use:</b></td>
-                        <td class="newtable"><form:radiobutton path="inuse" value="0" /> Vacant</td>
-                        <td class="newtable"><form:radiobutton path="inuse" value="1" /> In use</td>
+                        <td class="newtable"><form:radiobutton path="available" value="0" /> Vacant</td>
+                        <td class="newtable"><form:radiobutton path="available" value="1" /> In use</td>
                     </tr>-->
                 </form:form>
                 <tr>
